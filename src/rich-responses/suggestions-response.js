@@ -188,25 +188,13 @@ class Suggestion extends RichResponse {
       });
     } else if (platform === PLATFORMS.LINE) {
 
-      let items = [];
-      this.replies.forEach(function (reply) {
-        items.push({
-            "type": "action",
-            "action": {
-                "type": "message",
-                "label": reply,
-                "text": reply
-            }
-        })
-      });
-
       response = {
-        type: "text",
-        text: this.title,
         quickReplies: {
-          items: items
+          text: this.title,
+          quickReplies: this.replies
         }
       }
+
     } else {
       response = {quickReplies: {quickReplies: this.replies}};
       // Response is the same for generic responses without the platform attribute
