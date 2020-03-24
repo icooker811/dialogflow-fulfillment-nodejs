@@ -188,9 +188,12 @@ class Suggestion extends RichResponse {
       });
     } else if (platform === PLATFORMS.LINE) {
 
+      console.log(this.title);
+      console.log(this.replies);
       response = {
         quickReplies: {
-          quickReplies: this.replies
+          "title": this.title,
+          "quickReplies": this.replies
         }
       }
 
