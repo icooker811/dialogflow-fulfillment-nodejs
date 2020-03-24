@@ -190,7 +190,6 @@ class Suggestion extends RichResponse {
 
       response = {
         quickReplies: {
-          text: this.title,
           quickReplies: this.replies
         }
       }
