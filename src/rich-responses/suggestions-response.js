@@ -44,6 +44,7 @@ class Suggestion extends RichResponse {
    */
   constructor(suggestion) {
     super();
+    this.title = "Choose an item:";
     this.platform = undefined;
     this.replies = [];
     if (
@@ -57,7 +58,8 @@ class Suggestion extends RichResponse {
     if (typeof suggestion === 'string') {
       this.replies.push(suggestion);
     } else if (typeof suggestion === 'object') {
-      this.replies.push(suggestion.title);
+      this.replies.push(suggestion.reply);
+      this.title = suggestion.title;
       if (
         typeof suggestion.platform !== 'undefined' &&
         suggestion.platform !== PLATFORMS.UNSPECIFIED
@@ -184,6 +186,13 @@ class Suggestion extends RichResponse {
       this.replies.forEach((reply) => {
         response.suggestions.suggestions.push({title: reply});
       });
+    } else if (platform === PLATFORMS.LINE) {
+      response = {
+        quickReplies: {
+          title: this.title,
+          quickReplies: this.replies
+        }
+      }
     } else {
       response = {quickReplies: {quickReplies: this.replies}};
       // Response is the same for generic responses without the platform attribute
