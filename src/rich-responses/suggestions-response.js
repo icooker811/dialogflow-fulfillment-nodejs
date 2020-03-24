@@ -187,10 +187,24 @@ class Suggestion extends RichResponse {
         response.suggestions.suggestions.push({title: reply});
       });
     } else if (platform === PLATFORMS.LINE) {
+
+      let items = [];
+      this.replies.forEach(function (reply) {
+        items.push({
+            "type": "action",
+            "action": {
+                "type": "message",
+                "label": reply,
+                "text": reply
+            }
+        })
+      });
+
       response = {
+        type: "text",
+        text: this.title,
         quickReplies: {
-          title: this.title,
-          quickReplies: this.replies
+          items: items
         }
       }
     } else {
