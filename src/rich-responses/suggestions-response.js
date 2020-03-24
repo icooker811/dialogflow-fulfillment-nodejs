@@ -58,8 +58,8 @@ class Suggestion extends RichResponse {
     if (typeof suggestion === 'string') {
       this.replies.push(suggestion);
     } else if (typeof suggestion === 'object') {
-      this.replies.push(suggestion.reply);
       this.title = suggestion.title;
+      this.replies.push(suggestion.reply);
       if (
         typeof suggestion.platform !== 'undefined' &&
         suggestion.platform !== PLATFORMS.UNSPECIFIED
@@ -188,14 +188,14 @@ class Suggestion extends RichResponse {
       });
     } else if (platform === PLATFORMS.LINE) {
 
-      console.log(this.title);
-      console.log(this.replies);
       response = {
         quickReplies: {
-          "title": this.title,
-          "quickReplies": this.replies
+          title: this.title,
+          quickReplies: this.replies
         }
-      }
+      };
+
+      response.platform = platform;
 
     } else {
       response = {quickReplies: {quickReplies: this.replies}};
